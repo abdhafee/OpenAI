@@ -1,10 +1,12 @@
 from openai import OpenAI
 import os
+import speech_recognition as sr
 
 #getting api key from os
 #implemented an AI Chatbot using openrouter
 
 api_key =os.getenv("API_KEY")
+recognizer = sr.Recognizer()
 
 if not api_key:
     raise ValueError("API_KEY NOT FOUND")
@@ -30,14 +32,22 @@ chat_history.append({"role": "system", "content": personas["poet"]})
 
 while True:
  
-    user_input = input("Enter Your Prompt:")
+    user_input = input("Enter Your Prompt: ")
 
     if user_input == "clear":
         chat_history = []
         chat_history.append({"role": "system", "content": personas["poet"]})
 
-    print("chat history cleared")
-    continue
+        print("chat history cleared")
+        continue
+
+    if user_input == 'mic':
+        with sr.microphone() as source:
+          print("Listening.................")
+          audio = recognizer.listen(source)
+          user_input = recognizer.recognize_google(audio)
+          print(f"You said: {user_input}")
+          
 
     chat_history.append({"role": "user", "content": user_input})
     if user_input == "exit":
