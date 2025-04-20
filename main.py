@@ -1,6 +1,7 @@
 from openai import OpenAI
 import os
- 
+
+#implemented an AI Chatbot using openrouter
 api_key =os.getenv("API_KEY")
 
 if not api_key:
