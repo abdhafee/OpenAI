@@ -28,7 +28,14 @@ chat_history.append({"role": "system", "content": personas["poet"]})
 while True:
  
     user_input = input("Enter Your Prompt:")
-    
+
+    if user_input == "clear":
+        chat_history = []
+        chat_history.append({"role": "system", "content": personas["poet"]})
+
+    print("chat history cleared")
+    continue
+
     chat_history.append({"role": "user", "content": user_input})
     if user_input == "exit":
         break
